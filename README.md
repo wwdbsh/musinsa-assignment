@@ -17,7 +17,7 @@
 
 ### 관리자용 API (CRUD)
 4. **브랜드 및 상품 관리 API**  
-   - 운영자가 새로운 브랜드를 등록하고, 해당 브랜드의 상품을 추가, 변경, 삭제할 수 있도록 지원
+   - 관리자가 새로운 브랜드를 등록하고, 해당 브랜드의 상품을 추가, 변경, 삭제할 수 있도록 지원
 
 ### 추가 사항
 - **초기 데이터 로딩:**  
@@ -59,12 +59,12 @@ mvn spring-boot:run
 ```
 실행 후 브라우저나 Postman, curl 등을 사용해 아래 API 엔드포인트를 테스트할 수 있습니다:
 
-- **고객용 API 예:**
+- **조회용 API 예:**
   - 카테고리별 최저가격 조회: `GET http://localhost:8080/api/v1/summary/category`
   - 단일 브랜드 최저총액 조회: `GET http://localhost:8080/api/v1/summary/brand`
   - 특정 카테고리 최저/최고 조회 (예: 상의): `GET http://localhost:8080/api/v1/summary/category/상의`
 
-- **운영자용 API 예:**
+- **관리자용 API 예:**
   - 신규 브랜드 등록: `POST http://localhost:8080/api/v1/admin/brands`
   - 브랜드 업데이트: `PUT http://localhost:8080/api/v1/admin/brands/{id}`
   - 브랜드 삭제: `DELETE http://localhost:8080/api/v1/admin/brands/{id}`
