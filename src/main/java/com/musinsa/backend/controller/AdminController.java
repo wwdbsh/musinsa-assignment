@@ -26,7 +26,9 @@ public class AdminController {
             }
             Brand brand = new Brand(request.getName());
             for (ProductRequest pr : request.getProducts()) {
-                brand.addProduct(new Product(pr.getCategory(), pr.getPrice()));
+                if (!pr.getCategory().equals("")) {
+                    brand.addProduct(new Product(pr.getCategory(), pr.getPrice()));
+                }
             }
             brandRepository.save(brand);
             return ResponseEntity.ok(new AdminResponse("SUCCESS", "Brand created successfully"));

@@ -68,3 +68,11 @@ mvn spring-boot:run
   - 신규 브랜드 등록: `POST http://localhost:8080/api/v1/admin/brands`
   - 브랜드 업데이트: `PUT http://localhost:8080/api/v1/admin/brands/{id}`
   - 브랜드 삭제: `DELETE http://localhost:8080/api/v1/admin/brands/{id}`
+
+### 통합 UI 테스트
+
+이 백엔드 프로젝트는 프론트엔드(React) 애플리케이션과 완벽하게 통합되어 있습니다. 프론트엔드 빌드 산출물은 백엔드의 `src/main/resources/static` 폴더에 복사되어, 서버 실행 시 정적 파일로 서빙됩니다.
+
+- **UI 확인:**  
+  서버가 실행되면, 브라우저에서 `http://localhost:8080`으로 접속하여 통합된 사용자 인터페이스(UI)를 확인할 수 있습니다.  
+  - 대시보드와 관리자 페이지가 포함된 프론트엔드가 제공되며, 이를 통해 API 연동 및 전체 시스템의 동작을 직접 테스트할 수 있습니다.
