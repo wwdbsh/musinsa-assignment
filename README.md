@@ -28,7 +28,7 @@
   - **Java, Spring Boot, Spring Data JPA:** 기본 애플리케이션 프레임워크 및 ORM  
   - **H2 Database:** 개발/테스트 환경용 인메모리 데이터베이스 (실제 운영 환경에서는 MySQL 전환 가능)  
   - **JUnit, Mockito, MockMvc:** 단위 및 통합 테스트 도구  
-  - **향후 확장:** 분산 시스템, Kafka, Redis, AWS, Kubernetes, Docker, AWS CloudWatch, Prometheus, Big Data 관련 기술은 실제 운영 환경에서 확장 가능
+  - **향후 확장:** 분산 시스템, Kafka, Redis, AWS, Kubernetes, Docker, AWS CloudWatch 관련 기술은 실제 운영 환경에서 확장 가능
 
 ---
 

@@ -44,6 +44,12 @@ public class SummaryController {
         }
     }
 
+    // 존재하는 모든 카테고리 이름 조회
+    @GetMapping("/categories")
+    public ResponseEntity<?> getCategories() {
+        return ResponseEntity.ok(priceService.getCategories());
+    }
+
     // 간단한 에러 응답 DTO
     public static class ErrorResponse {
         private String status;

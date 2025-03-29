@@ -44,9 +44,14 @@ public class AdminController {
                 return ResponseEntity.badRequest().body(new AdminResponse("FAILURE", "Brand not found"));
             }
             brand.setName(request.getName());
-            brand.getProducts().clear();
             for (ProductRequest pr : request.getProducts()) {
-                brand.addProduct(new Product(pr.getCategory(), pr.getPrice()));
+                if (brand.getProducts().stream().anyMatch(p -> p.getCategory().equals(pr.getCategory()))) {
+                    brand.getProducts().stream().filter(p -> p.getCategory().equals(pr.getCategory())).findFirst().ifPresent(p -> p.setPrice(pr.getPrice()));
+                } else {
+                    if (!pr.getCategory().equals("")) {
+                        brand.addProduct(new Product(pr.getCategory(), pr.getPrice()));
+                    }
+                }
             }
             brandRepository.save(brand);
             return ResponseEntity.ok(new AdminResponse("SUCCESS", "Brand updated successfully"));
@@ -69,6 +74,20 @@ public class AdminController {
             return ResponseEntity.badRequest().body(new AdminResponse("FAILURE", e.getMessage()));
         }
     }
+
+    // 브랜드 이름으로 id 조회
+    @GetMapping("/brands/name/{name}")
+    public ResponseEntity<?> getBrandIdByName(@PathVariable String name) {
+        try {
+            Brand brand = brandRepository.findByName(name);
+            if (brand == null) {
+                return ResponseEntity.badRequest().body(new AdminResponse("FAILURE", "Brand not found"));
+            }
+            return ResponseEntity.ok(new AdminResponse("SUCCESS", "Brand found successfully", brand.getId()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new AdminResponse("FAILURE", e.getMessage()));
+        }
+    }   
 
     // 요청/응답 DTO 클래스
     public static class BrandRequest {
@@ -94,10 +113,18 @@ public class AdminController {
     public static class AdminResponse {
         private String status;
         private String message;
+        private Long id;
         public AdminResponse(String status, String message) {
             this.status = status;
             this.message = message;
         }
+        public AdminResponse(String status, String message, Long id) {
+            this.status = status;
+            this.message = message;
+            this.id = id;
+        }
+        public Long getId() { return id; }
+        public void setId(Long id) { this.id = id; }
         public String getStatus() { return status; }
         public void setStatus(String status) { this.status = status; }
         public String getMessage() { return message; }

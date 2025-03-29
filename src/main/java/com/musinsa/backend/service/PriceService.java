@@ -20,7 +20,7 @@ public class PriceService {
 
     // API 1: 카테고리별 최저가격 및 총액 조회
     public CategorySummaryResponse getCategorySummary() {
-        List<String> categories = Arrays.asList("상의", "아우터", "바지", "스니커즈", "가방", "모자", "양말", "액세서리");
+        List<String> categories = Arrays.asList(getCategories().toArray(new String[0]));
         List<CategorySummaryItem> items = new ArrayList<>();
         int totalSum = 0;
         
@@ -46,7 +46,7 @@ public class PriceService {
             if (sum < minTotal) {
                 minTotal = sum;
                 List<CategoryPriceDetail> details = new ArrayList<>();
-                List<String> categories = Arrays.asList("상의", "아우터", "바지", "스니커즈", "가방", "모자", "양말", "액세서리");
+                List<String> categories = Arrays.asList(getCategories().toArray(new String[0]));
                 Map<String, Integer> priceMap = new HashMap<>();
                 for (Product p : brand.getProducts()) {
                     priceMap.put(p.getCategory(), p.getPrice());
@@ -76,6 +76,11 @@ public class PriceService {
         List<PriceDetail> lowestList = Collections.singletonList(new PriceDetail(lowest.getBrand().getName(), lowest.getPrice()));
         List<PriceDetail> highestList = Collections.singletonList(new PriceDetail(highest.getBrand().getName(), highest.getPrice()));
         return new CategoryPriceRangeResponse(category, lowestList, highestList);
+    }
+
+    // API 4: 존재하는 모든 카테고리 이름 조회
+    public List<String> getCategories() {
+        return productRepository.findAllCategories();
     }
 
     // DTO 클래스 (필요시 별도의 dto 패키지로 분리 가능)
